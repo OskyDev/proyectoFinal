@@ -8,16 +8,14 @@ fetch("./js/burgas.json")
 
     }) 
 
-
 let burgasCarrito = JSON.parse(localStorage.getItem('burgasCarrito')) || [];
 
 const shopContent    = document.getElementById('menuCardContainer');
 const modalContainer = document.getElementById('modalContainer');
 const verCarrito     = document.getElementById('verCarrito');
 
-
-
-//Creacion y funciones carrito
+//Funciones 
+//Crea el carrito al hacer click en el icono
 const pintarCarrito = () =>{
     
     modalContainer.innerHTML ='';
@@ -38,59 +36,12 @@ const pintarCarrito = () =>{
         modalContainer.style.display = 'none';
 
     });
-
     modalHeader.append(modalButton);
-    if (burgasCarrito.length >= 1 ){
-    const borrarTodo     = document.createElement('h3');
-    borrarTodo.innerText = "Borrar todos los productos";
-    borrarTodo.className = 'borrarTodo';
 
-    borrarTodo.addEventListener('click', () =>{
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger'
-            },
-            // buttonsStyling: false
-          })
-          
-          swalWithBootstrapButtons.fire({
-            title: 'Estas seguro de borrar todo el carrito?',
-            text: "Empezara tu pedido desde 0",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Si, quiero empezar de nuevo !',
-            cancelButtonText: 'No, mantener mi pedido !',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-              swalWithBootstrapButtons.fire(
-                'Eliminado!',
-                'Ya podes empezar tu pedido desde 0',
-              ) 
-            burgasCarrito.length = 0;
-            localStorage.setItem('burgasCarrito', JSON.stringify(burgasCarrito));
-            saveLocal();
-            pintarCarrito();
 
-            } else if (
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-              swalWithBootstrapButtons.fire(
-                'Todo sigue igual 😊',
-                'Tu pedido se mantuvo'
-              )
-              
-            }
-          })
-
-       
-
-    });
-
-    modalHeader.append(borrarTodo);
-    }  
     
+    
+    // Burga en carrito, crea una linea con el precio nombre y el boton eliminar burga
 
     burgasCarrito.forEach((burga)=> {
     let carritoContent       = document.createElement('div');
@@ -109,8 +60,6 @@ const pintarCarrito = () =>{
     });
     });
 
-    
-
     const eliminarBurga = (id) =>{
 
             const buscarID = burgasCarrito.find((element) => element.id === id);
@@ -124,10 +73,77 @@ const pintarCarrito = () =>{
 
         }
     
+    //Boton Finalizar Pedido, crea el elemento html de finalizar pedido y ejecuta con el click la alerta, vacia el carrito y renueva el savelocal
+    if (burgasCarrito.length >= 1 ){
+    const finalizarPedido     = document.createElement('h3');
+    finalizarPedido.innerText = 'Finalizar pedido';
+    finalizarPedido.className = 'finalizarPedido';
     
+    finalizarPedido.addEventListener('click', () =>{
+
+        Swal.fire({
+            title: 'Desea finalizar el pedido?',
+            text: `El total es de ${total}`,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Finalizar pedido'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Ya estamos haciendo tu pedido',
+                'En 30 minutos podras retirarlo por nuestro local ',
+                'success'
+              )
+              burgasCarrito.length = 0;
+              localStorage.setItem('burgasCarrito', JSON.stringify(burgasCarrito));
+              saveLocal();
+              pintarCarrito();
+  
+            }
+          })
+
+    })
+    modalContainer.append(finalizarPedido);
+    }
+
+   
+
+ //Crea el elemento html de vaciar carrito y ejecuta con el click la alerta, vacia el carrito y renueva el savelocal
+    if (burgasCarrito.length >= 1 ){
+    const vaciarCarrito     = document.createElement('h3');
+    vaciarCarrito.innerText = "Vaciar Carrito";
+    vaciarCarrito.className = 'vaciarCarrito';
+
+    vaciarCarrito.addEventListener('click', () =>{
+
+          Swal.fire({
+            title: 'Desea vaciar el carrito?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Si, deseo vaciar el carrito',
+            denyButtonText: `No, no deseo vaciar el carrito`,
+          }).then((result) => {
+            
+            if (result.isConfirmed) {
+              Swal.fire('🗑️✅', 'Carrito Vacio', 'Empiece de nuevo su pedido');
+              burgasCarrito.length = 0;
+            localStorage.setItem('burgasCarrito', JSON.stringify(burgasCarrito));
+            saveLocal();
+            pintarCarrito();
 
 
-    //Total
+            } else if (result.isDenied) {
+              Swal.fire('✅','El carrito se mantuvo' )
+            }
+          })
+
+    });
+
+    modalContainer.append(vaciarCarrito);
+    }  
+    //Calcula el  total, suma los precios de cada burga con la funcion reduce
     const total       = burgasCarrito.reduce((acc, el) => acc + el.precio, 0);
     const totalCompra = document.createElement('div');
     
@@ -136,10 +152,10 @@ const pintarCarrito = () =>{
     modalContainer.append(totalCompra)
 
 };
-verCarrito.addEventListener('click', pintarCarrito);
 
-//Funciones burgas
-
+const saveLocal = () =>{
+    localStorage.setItem('burgasCarrito', JSON.stringify(burgasCarrito));
+}
  function cargarBurgas(){burgas.forEach((burga) => {
 
     let content = document.createElement('div');
@@ -157,7 +173,7 @@ verCarrito.addEventListener('click', pintarCarrito);
     shopContent.append(content);
 
 
-
+//Agrega la burga al carrito, pushea su informacion  y muestra la alerta
 let agregar = document.createElement('button');
 agregar.innerText = "Agregar";
 agregar.type = "button";
@@ -168,14 +184,14 @@ agregar.addEventListener('click', () =>{
         text: "Burga agregada",
         duration: 1000,
         newWindow: true,
-        gravity: "top", // `top` or `bottom`
-        position: "center", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
+        gravity: "top", 
+        position: "center", 
+        stopOnFocus: true, 
         style: {
           background:"#9d0919",
           
         },
-        onClick: function(){} // Callback after click
+        onClick: function(){} 
       }).showToast();
     
     burgasCarrito.push({
@@ -191,8 +207,13 @@ saveLocal();
 
 })};
 
-// Local Storage
-const saveLocal = () =>{
-    localStorage.setItem('burgasCarrito', JSON.stringify(burgasCarrito));
-}
+
+//Program
+verCarrito.addEventListener('click', pintarCarrito);
+
+
+
+
+
+
 

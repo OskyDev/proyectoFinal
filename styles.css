@@ -45,7 +45,7 @@
         position: fixed;
         overflow: auto;
         z-index: 9;
-        top:12vh;
+        top:18vh;
         scrollbar-color:none
 
         
@@ -69,22 +69,7 @@ width: 100%;
     padding-top: 20px;
 
 }
-.borrarTodo{
 
-    font-size: 25px;
-    padding: 20px;
-    text-align:right;
-    
-}
-.card-entregas{
-
-flex-wrap: wrap;
-width: 100%;
-margin-top: 3rem;
-justify-content: space-between;
-
-
-}
 .navbarLogo{
 
     text-align: right;
@@ -94,7 +79,6 @@ justify-content: space-between;
 .modalHeaderBtn{
     cursor:pointer;
 }
-
 .verCarrito{
 
     float: right;
@@ -102,6 +86,23 @@ justify-content: space-between;
     margin-right: 40px;
     cursor:pointer;
 }
+.finalizarPedido{
+
+    color:#e47e10;
+    cursor:pointer;
+    font-size: 25px;
+    padding: 20px;
+    text-align: right;
+    padding-top: 20px;
+}
+.vaciarCarrito{
+    color: #9d0919;
+    cursor: pointer;
+    text-align: left;
+}
+
+
+
 .nombreCarrito{
 
     text-align: left;
@@ -116,7 +117,6 @@ justify-content: space-between;
     margin-right: 40px;
 
 }
-
 .borrarBurga{
     cursor: pointer;
     margin-left: 40px;
@@ -127,6 +127,7 @@ justify-content: space-between;
    margin: 5px;
 
 }
+
 .contenidoModal{
 
     flex-direction: row;
@@ -189,34 +190,6 @@ font-family: sans-serif;
     margin: 5px auto;
     
 }
-
-
-
-
-.entregaPedido{
-
-    background-color: #efb04d;
-    width:55% ;
-    margin:30px auto;
-    text-align: center;
-    height:175px;
-    display:block ;
-   
-
-}
-.textoOpcionEntrega{
-
-    font-family: sans-serif;
-    margin:5px;
-    color:#001e4e
-
-}
-.preguntaEntrega{
-
-    font-family: sans-serif;
-    margin:5px;
-    color:#001e4e
-}
 #btn{
 
     padding: 15px 20px;
@@ -230,17 +203,11 @@ font-family: sans-serif;
     margin-left: 40%;
     
 }
-.checkboxEntrega{
 
-    margin: 7px;
 
-}
-.descripcionEntrega{
 
-   font-family: sans-serif;
-   padding-top: 8px;
 
-}
+
 
 html{
     background-color: #4a141b;
