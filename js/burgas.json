@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "nombre": "Simple Burger",
+        "precio": 900,
+        "descripcion": "Un medallon de 110 gr, cheddar x2, cebolla caramelizada y bacon"
+    },
+    {
+        "id": 2,
+        "nombre": "Doble Burger",
+        "precio": 1000,
+        "descripcion":"Doble medallon de 110 gr,   cheddar x4, cebolla caramelizada y bacon"
+    },
+    {
+        "id": 3,
+        "nombre": "Triple Burger",
+        "precio": 1100,
+        "descripcion":"Triple medallon de 110 gr, cheddar x6, cebolla caramelizada y bacon"
+    },
+    {
+        "id": 4,
+        "nombre": "Veggie Burger",
+        "precio": 1150,
+        "descripcion":"Un medallon NotCo Burger, cebolla morada, salsa Thousand, lechuga, tomate y cheddar x2"
+    },
+    {
+        "id": 5,
+        "nombre": "American Burger",
+        "precio": 1150,
+        "descripcion":"Doble medallon de 110gr, cebolla morada, salsa Thousand, lechuga, tomate y cheddar x4 , bacon"
+    },
+    {
+        "id": 6,
+        "nombre": "Smocked Jack Daniels ",
+        "precio": 1250,
+        "descripcion":"Doble medallon de 110gr, salsa Smocked Jack Daniels, cheddar x4, smocked bacon y dos aros de cebolla"
+    }
+]
